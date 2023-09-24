@@ -4,8 +4,7 @@ enum custom_keycodes {
     GO_ASSIGN = SAFE_RANGE,
     QMK_RIGHT_ARROW,
     QMK_LEFT_ARROW,
-    QMK_JS_ARROW,
-    QMK_PIPE
+    QMK_JS_ARROW
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -40,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_ESC, XXXXXXX, XXXXXXX, QMK_LEFT_ARROW, QMK_RIGHT_ARROW, KC_ASTR,        KC_PLUS,  KC_EQL, KC_LPRN, KC_RPRN, KC_BSLS,  KC_GRV,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLSH,                      KC_MINS, GO_ASSIGN, KC_LCBR, KC_RCBR, KC_PIPE, QMK_PIPE,
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLSH,                      KC_MINS, GO_ASSIGN, KC_LCBR, KC_RCBR, KC_PIPE, S(KC_NUBS),
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT,   MO(3),  KC_SPC,     KC_ENT, _______, XXXXXXX
                                       //`--------------------------'  `--------------------------'
@@ -79,18 +78,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case QMK_JS_ARROW:
             if (record->event.pressed) {
                 SEND_STRING("=>");
-            }
-            break;
-        case QMK_PIPE:
-            if (record->event.pressed) {
-                // shift down
-                register_mods(MOD_MASK_SHIFT);
-                // backslash down
-                register_code(KC_NUBS);
-                // backslash up
-                unregister_code(KC_NUBS);
-                // shift up
-                unregister_mods(MOD_MASK_SHIFT);
             }
             break;
     }
